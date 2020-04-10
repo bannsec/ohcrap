@@ -7,10 +7,10 @@ from .table import Table
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Craps Simulator')
-    parser.add_argument("--buyin", "-b", type=int, default=10000,
-            help="Amount of money to buy in with (default: 10000)")
-    parser.add_argument("--rolls", "-r", type=int, default=100000,
-            help="Max rolls to simulate (default: 100000)")
+    parser.add_argument("--buyin", "-b", type=int, default=100000,
+            help="Amount of money to buy in with (default: 100000)")
+    parser.add_argument("--rolls", "-r", type=int, default=10000000,
+            help="Max rolls to simulate (default: 10000000)")
     parser.add_argument("--verbose", "-v", default=False, action="store_true",
             help="Make verbose output.")
     parser.add_argument("strategy", type=str,

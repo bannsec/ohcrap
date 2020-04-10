@@ -1,6 +1,7 @@
 
 import logging
 import random
+from .exceptions import *
 
 class Table:
     """Represents a craps table."""
@@ -12,7 +13,8 @@ class Table:
         self._pass_line_bets = {}
         self._dont_pass_line_bets = {}
 
-        self._rolls = rolls
+        self._max_rolls = rolls
+        self._rolls = 0
         self.come_out = True # Is this a come-out?
         self.point = None # No point yet
 
@@ -98,7 +100,7 @@ class Table:
 
     def roll(self):
         """Simulates a single roll."""
-        self._rolls -= 1
+        self._rolls += 1
 
         # Notify players
         for player in self.players:
@@ -132,10 +134,14 @@ class Table:
 
     def run(self):
         """Runs the simulator to completion."""
-        while self._rolls > 0:
-            self.roll()
 
-        print("Out of rolls.")
+        try:
+            while self._rolls < self._max_rolls:
+                self.roll()
+            else:
+                print("Out of rolls.")
+        except OutOfMoney:
+            print("Out of money!")
 
         # Give players their money back if any is on the table
         # Yes this isn't realistic, but it simplifies things
@@ -147,6 +153,7 @@ class Table:
 
         for player in self.players:
             print("Player money: " + str(player.money))
+            print("Average per-roll gain/loss: " + str((player.money - player._starting_money)/self._rolls))
 
     def __repr__(self):
         return "<Table>"

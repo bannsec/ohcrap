@@ -6,6 +6,7 @@ class Player:
     """Represents a player at the table."""
     def __init__(self, money, strategy):
         self.money = money
+        self._starting_money = money
         self.strategy = strategy
 
     @property
